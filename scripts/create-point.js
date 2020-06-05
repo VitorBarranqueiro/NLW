@@ -63,11 +63,59 @@ document
       item.addEventListener("click", handleSelectedItem)
     }
 
+    let selectedItems = []
+    
     function handleSelectedItem(event) {
 
       const itemli = event.target
+     
+     //Serve para adicionar ou remover uma classe com javascript
       itemli.classList.toggle("selected")
 
-      const itemID = event.target.dataset.id
-      console.log()
+      const itemId = event.target.dataset.id
+
+
+
+
+      //PARA VERIFICAR SE EXISTEM ITENS SELECIONADOS E COLETA-LOS
+
+    const alreadySelected = selectedItems.findIndex( function (item) { 
+      const itemFound = item == itemId
+      return itemFound
+      
+    })
+
+
+
+    // SE JA SELECIONADO REMOVER DA SELECAO
+
+    if( alreadySelected >=0 ){
+      const filteredItems = selectedItems.filter( item => {
+        const itemIsDifferent = item != itemId
+        return itemIsDifferent
+      })
+
+      selectedItems = filteredItems //remove os item filtrados acima 
+
     }
+    else {
+      selectedItems.push(itemId) //adiciona itens 
+
+    }
+
+
+    //atualizar o campo de itens selecionados
+
+    collectedItems.value = selectedItems
+
+
+   
+
+
+      
+
+
+      
+    }
+
+
