@@ -1,78 +1,57 @@
-<!DOCTYPE html>
-<html lang="pt_br">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            
-            
-            
-            <title>Resultado da pesquisa</title>
-            
-            <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="/styles/main.css">
-            <link rel="stylesheet" href="/styles/search-results.css">
+{% extends "layout.html" %}
 
-            <link rel="stylesheet" href="/styles/responsive.css">
+{% set pageId = "page-search-results" %}
 
+{% block title %}
+    <title>Resultado da pesquisa</title>
 
-  
-          </head>
-<body>
-          <div id="page-search-results">
+{% endblock title %}
 
+{% block styles %}
+    <link rel="stylesheet" href="/styles/search-results.css">
 
-                <header>
+{% endblock styles %}
 
-                        <img src= "/assets/logo.svg" alt="Logomarca">
-                        <a href="/">
-                                <span></span>
-                                Voltar para home
-                         
-                         </a>
-       
+{% block content %}
+    {% include "partials/page-header.html" %}
+
+    <main>
+
+    {% if total > 0 %}
+
+        <h4>
+            <strong>{{total}} pontos</strong>
+            encontrados
+        </h4>
+
+        <div class="cards">
 
 
+            {% for place in places %}
 
-                </header>
-                
-            <main>
+                <div class="card">
+                    <img src="{{ place.image }}" alt="{{ place.name }}">
+                    <h1>{{ place.name }}</h1>
+                    <h3>{{ place.items }}</h3>
+                    <p>
+                        {{ place.city }}, {{ place.state }}
+                        <br/>
+                        {{ place.address }}
+                        <br/>
+                        {{ place.address2 }}
+                    </p>
+                </div>
 
-                  <h4>
-                    <strong>2 pontos</strong> encontrados
-                  </h4>
+            {% endfor %}
 
-                  <div class= "cards">
-                          <div class = " card">
-                            <img src="http://shorturl.at/enINV" alt="Colectoria">
-                            <h2>Colectoria</h2>
-                            <h3>Resíduos eletronicos, Lâmpadas</h3>
-                            <p>
-                              Rio do sul, Santa Catarina <br/>
-                              Guilherme Gemballa, Jardim America <br/>
-                              Nº 260 
-                            </p>
-                          </div>
+        </div>
+    
+    {%else%}
 
-                          <div class = " card">
-                            <img src="http://shorturl.at/axDHT" alt="Papersider">
-                            <h2>Papersider</h2>
-                            <h3>Papéis e Papelão</h3>
-                            <p>
-                              Rio do sul, Santa Catarina <br/>
-                              Guilherme Gemballa, Jardim America <br/>
-                              Nº 260 
-                            </p>
-                          </div>
-                  </div>
+        <h4><strong>Nenhum</strong> local encontrado</h4>
+    
+    {% endif %}
 
-
-            </main>
- 
-           
-      
-          </div>  
-             
-
-
-</body>
-</html>
+        
+    </main>
+{% endblock content %}
